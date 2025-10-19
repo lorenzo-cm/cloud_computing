@@ -1,0 +1,4 @@
+fpgrowth_py
+pandas
+datetime
+pyyaml

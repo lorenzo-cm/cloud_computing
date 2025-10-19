@@ -1,0 +1,3 @@
+Host cloud2
+    HostName pugna.snes.2advanced.dev
+    Port 51927
