@@ -10,7 +10,8 @@ CONFIG_FILE = Path("config.yaml")
 with open(CONFIG_FILE, "r") as f:
     cfg = yaml.safe_load(f)
 
-MODEL_FILE = cfg["output"]["model_path"]
+MODEL_FILE = Path(cfg["output"]["model_path"])
+MODEL_FILE.parent.mkdir(parents=True, exist_ok=True)
 
 df = pd.read_csv(cfg["dataset"]["file_path"])
 

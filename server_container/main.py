@@ -2,8 +2,9 @@ import asyncio
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 from load_model import load_model, watch_model
-
+from datetime import datetime
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -42,11 +43,14 @@ def recommend(songs_seen: list[str], rules: list) -> list[str]:
 
     return sorted(recommendations, key=recommendations.get, reverse=True)
 
+class RecommendationRequest(BaseModel):
+    songs_seen: list[str]
+
 @app.post("/api/recommend")
-async def recommend_songs(songs_seen: list[str]):
+async def recommend_songs(request: RecommendationRequest):
     model = app.state.model
     return {
-        "songs": recommend(songs_seen, model["rules"]),
-        "version": model.get("version", "unknown"),
-        "model_date": model.get("datetime", "unknown"),
+        "songs": recommend(request.songs_seen, model["rules"]),
+        "version": model.get("version", "0.0"),
+        "model_date": model.get("datetime", datetime.now().isoformat()),
     }
