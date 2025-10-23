@@ -1,0 +1,45 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lorenzomagalhaes-server-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lorenzomagalhaes-server
+  template:
+    metadata:
+      labels:
+        app: lorenzomagalhaes-server
+    spec:
+      containers:
+      - name: lorenzomagalhaes-server
+        image: lorenzocarneiro/server:1.0.0
+        ports:
+        - containerPort: 8000
+        env:
+        - name: model_path
+          value: models
+        
+        volumeMounts:
+        - name: lorenzomagalhaes-pvc
+          mountPath: /models
+      volumes:
+      - name: lorenzomagalhaes-pvc
+        persistentVolumeClaim:
+          claimName: lorenzomagalhaes-pvc
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: lorenzomagalhaes-server-service
+spec:
+  selector:
+    app: lorenzomagalhaes-server
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000

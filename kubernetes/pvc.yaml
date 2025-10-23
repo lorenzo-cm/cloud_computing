@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: lorenzomagalhaes-pvc
+  namespace: lorenzomagalhaes
+spec:
+  storageClassName: default-storage-class-lorenzomagalhaes
+  selector:
+    matchLabels:
+      namespace: lorenzomagalhaes

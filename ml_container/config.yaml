@@ -1,6 +1,0 @@
-dataset:
-  name: "ds1"
-  file_path: "data/2023_spotify_ds1.csv"
-
-output:
-  model_path: "models/model.pkl"

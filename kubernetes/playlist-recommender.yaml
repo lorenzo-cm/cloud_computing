@@ -1,0 +1,33 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: lorenzomagalhaes-playlist-recommender-job
+spec:
+  backoffLimit: 2
+  template:
+    metadata:
+      labels:
+        app: lorenzomagalhaes-playlist-recommender
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: recommender
+        image: lorenzocarneiro/playlist-recommender:1.0.0
+        env:
+        - name: DATASET_NAME
+          value: "ds1"
+        - name: DATASET_FILE_PATH
+          value: "/data/2023_spotify_ds1.csv"
+        - name: MODEL_PATH
+          value: "/models/model.pkl"
+        - name: MIN_SUP_RATIO
+          value: "0.04"
+        - name: MIN_CONF
+          value: "0.01"
+        volumeMounts:
+        - name: lorenzomagalhaes-pvc
+          mountPath: /models
+      volumes:
+      - name: lorenzomagalhaes-pvc
+        persistentVolumeClaim:
+          claimName: lorenzomagalhaes-pvc
