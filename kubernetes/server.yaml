@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: lorenzomagalhaes-server
-        image: lorenzocarneiro/server:1.0.0
+        image: lorenzocarneiro/cloud-server:1.0.0
         ports:
         - containerPort: 8000
         env:
@@ -41,6 +41,5 @@ spec:
     app: lorenzomagalhaes-server
   ports:
     - protocol: TCP
-      port: 8000
+      port: 30080
       targetPort: 8000
-      nodePort: 30080

@@ -12,12 +12,12 @@ spec:
       restartPolicy: OnFailure
       containers:
       - name: recommender
-        image: lorenzocarneiro/playlist-recommender:1.0.0
+        image: lorenzocarneiro/cloud-playlist-recommender:1.0.0
         env:
         - name: DATASET_NAME
           value: "ds1"
         - name: DATASET_FILE_PATH
-          value: "/data/2023_spotify_ds1.csv"
+          value: "/models/2023_spotify_ds1.csv"
         - name: MODEL_PATH
           value: "/models/model.pkl"
         - name: MIN_SUP_RATIO

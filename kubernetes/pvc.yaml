@@ -8,3 +8,8 @@ spec:
   selector:
     matchLabels:
       namespace: lorenzomagalhaes
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
