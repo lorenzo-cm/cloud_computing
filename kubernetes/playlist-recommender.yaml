@@ -13,6 +13,7 @@ spec:
       containers:
       - name: recommender
         image: lorenzocarneiro/cloud-playlist-recommender:1.0.0
+        imagePullPolicy: Always
         env:
         - name: DATASET_NAME
           value: "ds1"
