@@ -19,9 +19,9 @@ spec:
         ports:
         - containerPort: 8000
         env:
-        - name: model_path
+        - name: model_dir
           value: models
-        
+        imagePullPolicy: Always        
         volumeMounts:
         - name: lorenzomagalhaes-pvc
           mountPath: /models
@@ -41,5 +41,5 @@ spec:
     app: lorenzomagalhaes-server
   ports:
     - protocol: TCP
-      port: 30080
+      port: 50017
       targetPort: 8000

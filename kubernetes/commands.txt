@@ -1,0 +1,14 @@
+kubectl -n lorenzomagalhaes apply -f kubernetes/server.yaml
+kubectl -n lorenzomagalhaes apply -f kubernetes/pvc.yaml
+kubectl -n lorenzomagalhaes apply -f kubernetes/playlist-recommender.yaml
+
+
+kubectl -n lorenzomagalhaes get deployments
+kubectl -n lorenzomagalhaes get services
+
+
+kubectl -n lorenzomagalhaes delete service lorenzomagalhaes-server-service
+kubectl -n lorenzomagalhaes delete deploy lorenzomagalhaes-server-deployment
+
+
+kubectl logs -n lorenzomagalhaes deploy/lorenzomagalhaes-server-deployment --all-containers
