@@ -9,7 +9,7 @@ from fpgrowth_py import fpgrowth
 
 DATASET_NAME = os.getenv("DATASET_NAME", "ds1")
 DATASET_FILE_PATH = os.getenv("DATASET_FILE_PATH", "data/2023_spotify_ds1.csv")
-MODEL_PATH = os.getenv("MODEL_PATH", "model")
+MODEL_PATH = Path(os.getenv("MODEL_PATH", "model/model.pkl"))
 MIN_SUP_RATIO = float(os.getenv("MIN_SUP_RATIO", 0.04))
 MIN_CONF = float(os.getenv("MIN_CONF", 0.01))
 
