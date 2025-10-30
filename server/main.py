@@ -3,12 +3,11 @@ import os
 from contextlib import asynccontextmanager
 from datetime import datetime
 from pathlib import Path
-import time
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from load_model import load_model, watch_model
+from load_model import watch_model, load_model
 from pydantic import BaseModel
 
 MODEL_DIR = Path(
@@ -25,6 +24,19 @@ MODEL_FILE_PATH = MODEL_DIR / "model.pkl"
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    app.state.model = {
+        "rules": [],
+        "version": "model not loaded",
+        "datetime": datetime.now().isoformat(),
+        "dataset": None,
+    }
+
+    if MODEL_FILE_PATH.exists():
+        try:
+            app.state.model = load_model(MODEL_FILE_PATH)
+        except Exception:
+            pass
+
     task = asyncio.create_task(watch_model(app, MODEL_FILE_PATH, interval_seconds=5))
 
     yield
@@ -66,12 +78,8 @@ class RecommendationRequest(BaseModel):
 @app.post("/api/recommend")
 async def recommend_songs(request: RecommendationRequest):
     model = app.state.model
-    recommended_songs = []
 
-    try:
-        recommended_songs = recommend(model["rules"], request.songs)
-    except Exception:
-        pass
+    recommended_songs = recommend(model["rules"], request.songs)
 
     return JSONResponse(
         {
