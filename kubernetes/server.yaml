@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: lorenzomagalhaes-server
-        image: lorenzocarneiro/cloud-server:1.0.0
+        image: lorenzocarneiro/cloud-server:1.0.1
         ports:
         - containerPort: 8000
         env:
