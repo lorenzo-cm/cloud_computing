@@ -22,5 +22,5 @@ async def watch_model(app, model_path, interval_seconds: int = 5) -> None:
                     f"[reloader] Modelo recarregado. dataset={app.state.model.get('dataset')} at={app.state.model.get('datetime')}"
                 )
         except FileNotFoundError:
-            print("[reloader] Arquivo do modelo não foi encontrado")
+            print(f"[reloader] Arquivo do modelo não foi encontrad: {model_path}")
             continue
