@@ -2,9 +2,10 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: lorenzomagalhaes-playlist-recommender-job-ds1-v1.0.1
-  annotations:
-    argocd.argoproj.io/sync-options: PruneLast=true
 spec:
+  syncPolicy:
+      automated:
+        prune: true
   backoffLimit: 2
   template:
     metadata:
