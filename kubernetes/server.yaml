@@ -19,8 +19,8 @@ spec:
         ports:
         - containerPort: 8000
         env:
-        - name: model_dir
-          value: models
+        - name: model_path
+          value: /models/model.pkl
         imagePullPolicy: Always        
         volumeMounts:
         - name: lorenzomagalhaes-pvc

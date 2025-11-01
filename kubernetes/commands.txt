@@ -5,10 +5,24 @@ kubectl -n lorenzomagalhaes apply -f kubernetes/playlist-recommender.yaml
 
 kubectl -n lorenzomagalhaes get deployments
 kubectl -n lorenzomagalhaes get services
+kubectl -n lorenzomagalhaes get jobs
 
 
 kubectl -n lorenzomagalhaes delete service lorenzomagalhaes-server-service
 kubectl -n lorenzomagalhaes delete deploy lorenzomagalhaes-server-deployment
+kubectl -n lorenzomagalhaes delete job lorenzomagalhaes-playlist-recommender-job
+
+kubectl logs -n lorenzomagalhaes -f deploy/lorenzomagalhaes-server-deployment --all-containers
+kubectl logs -n lorenzomagalhaes -f job/lorenzomagalhaes-playlist-recommender-job  --all-containers
 
 
-kubectl logs -n lorenzomagalhaes deploy/lorenzomagalhaes-server-deployment --all-containers
+argocd login localhost:31443 --username lorenzomagalhaes --password f6939046d4b2aa170232bf5ef9631f01 --insecure
+
+# Check ArgoCD application status
+argocd app get lorenzomagalhaes-app
+argocd app list
+argocd app status lorenzomagalhaes-app
+argocd app history lorenzomagalhaes-app
+argocd app logs APPNAME [flags]
+
+kubectl -n lorenzomagalhaes port-forward svc/lorenzomagalhaes-server-service 8080:50017

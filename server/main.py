@@ -10,17 +10,12 @@ from fastapi.responses import JSONResponse
 from load_model import watch_model, load_model
 from pydantic import BaseModel
 
-MODEL_DIR = Path(
+MODEL_PATH = Path(
     os.getenv(
-        "model_dir",
-        Path(
-            "/home/lorenzo-cm/faculdade/9PERIODO/cloud_computing/playlist-recommender/model"
-        ),
+        "model_path",
+        "/models/model.pkl",
     )
 )
-
-MODEL_FILE_PATH = MODEL_DIR / "model.pkl"
-
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -31,13 +26,13 @@ async def lifespan(app: FastAPI):
         "dataset": None,
     }
 
-    if MODEL_FILE_PATH.exists():
+    if MODEL_PATH.exists():
         try:
-            app.state.model = load_model(MODEL_FILE_PATH)
+            app.state.model = load_model(MODEL_PATH)
         except Exception:
             pass
 
-    task = asyncio.create_task(watch_model(app, MODEL_FILE_PATH, interval_seconds=5))
+    task = asyncio.create_task(watch_model(app, MODEL_PATH, interval_seconds=5))
 
     yield
 
