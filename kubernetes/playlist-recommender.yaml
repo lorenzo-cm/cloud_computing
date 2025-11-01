@@ -12,7 +12,7 @@ spec:
       restartPolicy: OnFailure
       containers:
       - name: recommender
-        image: lorenzocarneiro/cloud-playlist-recommender:${VERSION}
+        image: lorenzocarneiro/cloud-playlist-recommender:1.0.1
         imagePullPolicy: Always
         env:
         - name: DATASET_NAME
