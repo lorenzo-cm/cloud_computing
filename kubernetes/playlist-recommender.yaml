@@ -12,7 +12,7 @@ spec:
       restartPolicy: OnFailure
       containers:
       - name: recommender
-        image: lorenzocarneiro/cloud-playlist-recommender:1.0.0
+        image: lorenzocarneiro/cloud-playlist-recommender:${VERSION}
         imagePullPolicy: Always
         env:
         - name: DATASET_NAME
@@ -25,6 +25,8 @@ spec:
           value: "0.04"
         - name: MIN_CONF
           value: "0.01"
+        - name: VERSION
+          value: "1.0.0"
         volumeMounts:
         - name: lorenzomagalhaes-pvc
           mountPath: /models

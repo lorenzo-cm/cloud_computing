@@ -12,6 +12,7 @@ DATASET_FILE_PATH = os.getenv("DATASET_FILE_PATH", "data/2023_spotify_ds1.csv")
 MODEL_PATH = Path(os.getenv("MODEL_PATH", "model/model.pkl"))
 MIN_SUP_RATIO = float(os.getenv("MIN_SUP_RATIO", 0.04))
 MIN_CONF = float(os.getenv("MIN_CONF", 0.01))
+VERSION = os.getenv("VERSION", "0.0")
 
 MODEL_PATH.parent.mkdir(parents=True, exist_ok=True)
 
@@ -30,6 +31,7 @@ with open(MODEL_PATH, "wb") as f:
             "rules": rules,
             "datetime": datetime.now().isoformat(),
             "dataset": DATASET_NAME,
+            "version": VERSION,
         },
         f,
     )
