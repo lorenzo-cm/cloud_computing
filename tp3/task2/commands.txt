@@ -1,0 +1,3 @@
+redis-cli GET f6939046d4b2aa170232bf5ef9631f01-ifs4-proj3-output
+
+kubectl rollout restart deployment lorenzomagalhaes-proj3-dashboard-deployment

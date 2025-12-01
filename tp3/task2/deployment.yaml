@@ -1,0 +1,46 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lorenzomagalhaes-proj3-dashboard-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lorenzomagalhaes-proj3-dashboard
+  template:
+    metadata:
+      labels:
+        app: lorenzomagalhaes-proj3-dashboard
+    spec:
+      containers:
+        - name: lorenzomagalhaes-proj3-dashboard
+          image: lorenzocarneiro/proj3-dashboard:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8501
+          env:
+            - name: REDIS_HOST
+              value: "192.168.121.171"
+            - name: REDIS_PORT
+              value: "6379"
+            - name: REDIS_DB
+              value: "0"
+            - name: REDIS_OUTPUT_KEY
+              value: "f6939046d4b2aa170232bf5ef9631f01-ifs4-proj3-output"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: lorenzomagalhaes-proj3-dashboard
+spec:
+  type: NodePort
+  selector:
+    app: lorenzomagalhaes-proj3-dashboard
+  ports:
+    - protocol: TCP
+      port: 50117
+      targetPort: 8501
+      nodePort: 30117

@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  REDIS_OUTPUT_KEY: f6939046d4b2aa170232bf5ef9631f01-ifs4-proj3-output
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: outputkey
