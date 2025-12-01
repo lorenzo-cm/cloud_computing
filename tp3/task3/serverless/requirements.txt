@@ -1,0 +1,8 @@
+# Dependencies for the runtime
+redis
+
+# Dependencies for the development
+streamlit
+numpy
+pandas
+matplotlib

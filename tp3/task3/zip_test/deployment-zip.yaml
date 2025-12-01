@@ -1,0 +1,53 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: serverless-redis-lorenzo-zip
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: serverless-redis-lorenzo-zip
+  template:
+    metadata:
+      labels:
+        app: serverless-redis-lorenzo-zip
+    spec:
+      containers:
+      - name: serverless-redis-lorenzo-zip
+        image: lorenzocarneiro/proj3-serverless:latest
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 100m
+            memory: 300Mi
+        env:
+        - name: REDIS_HOST
+          value: "192.168.121.171"
+        - name: REDIS_PORT
+          value: "6379"
+        - name: REDIS_INPUT_KEY
+          value: "metrics"
+        - name: REDIS_OUTPUT_KEY
+          valueFrom:
+            configMapKeyRef:
+              name: outputkey
+              key: REDIS_OUTPUT_KEY
+        
+        - name: USER_HANDLER_NAME
+          value: "handler"
+
+        - name: ZIP_FILE_PATH
+          value: "/opt/function.zip"
+        - name: ZIP_ENTRY_RELATIVE_FILE_PATH
+          value: "main.py"
+
+        volumeMounts:
+        - name: userfunc-zip
+          mountPath: /opt/function.zip
+          subPath: function.zip
+
+      volumes:
+      - name: userfunc-zip
+        configMap:
+          name: userfunc-zip
